@@ -48,7 +48,6 @@ async def getAPI(address,i):
                 servers[i].append(":green_circle: Online \n:video_game: Playing: %s" % (_req_json["players"]["online"]))
             else:
                 servers[i].append(":green_circle: Online")
-            print (servers)     
 
 async def removeEmojis(string):
 
