@@ -30,6 +30,7 @@ embedFooterIcon = "https://i.imgur.com/U067iC8.jpg"
 activityServerIndex = 0 #Which index of server for your bots activity
 activityTwitchURL = "https://www.twitch.tv/yung_streams" #Has to be a valid URL otherwise Discord will silent ignore
 
+#Gets response and stores it in array
 async def getAPI(address,i):
     _req = requests.get("https://api.mcsrvstat.us/2/%s" % address)
     if _req.status_code != 200:
@@ -43,14 +44,14 @@ async def getAPI(address,i):
             print("Server offline")
             servers[i].append(":red_circle: Offline")
         else:
-            print("Server online")
-            if servers[i][2] == True:
+            print("Server online") #If server is online
+            if servers[i][2] == True: #Checks whether to show player count or not
                 servers[i].append(":green_circle: Online \n:video_game: Playing: %s" % (_req_json["players"]["online"]))
             else:
                 servers[i].append(":green_circle: Online")
 
+#Removes emojis to be shown in bot activity
 async def removeEmojis(string):
-
     stringArray = string.split()
     joinString = ""
     delArray = []
@@ -75,25 +76,28 @@ async def on_ready():
     print('Bot logged in as {0.user}.'.format(client))
     await run()
 
+#Main
 async def run():
     while True:
         try:
-            with open("last_message.id", "r") as _f:
+            with open("last_message.id", "r") as _f: #Fetch last message if there is
                 _embed_message_id = int(_f.read())
                 print("Found stored message id %i" % _embed_message_id)
         except:
-            _embed_message_id = -1
+            _embed_message_id = -1 #If not found, set as -1
             print("Nothing stored. Id set to -1.")
         
+        #Calls getAPI
         for i in range (0,len(servers)):
             await getAPI(servers[i][1],i)
-            if i == activityServerIndex:
-                statusString = await removeEmojis(servers[activityServerIndex][4])
-                if "Online" in servers[activityServerIndex][4]:
+            if i == activityServerIndex: #If the choosen server is to be the bots activity
+                statusString = await removeEmojis(servers[activityServerIndex][4]) #Removes emojis
+                if "Online" in servers[activityServerIndex][4]: #If online
                     await client.change_presence(activity=discord.Streaming(name=statusString, url=activityTwitchURL))
-                else:
+                else: #If offline
                     await client.change_presence(activity=discord.Game(name='Server Offline'),status=discord.Status.dnd)
-
+       
+        #Making embed
         try:
             _embed=discord.Embed(title=embedTitle, color=embedColour)
             _embed.set_thumbnail(url=embedThumbnail)
@@ -110,8 +114,7 @@ async def run():
 
         except Exception as e: print(e)
 
-
-
+        #Checks whether or not to send a new message or edit last embed
         if _embed_message_id == -1:
             try:
                 print("Creating and sending message.")
@@ -136,6 +139,8 @@ async def run():
                 # You do not have the permissions required to get a message.
                 print("Error: Please, allow the bot to view ancient messages.")
                 _embed_message_id = -1
+       
+        #Writes to last_message.id
         try:
             with open("last_message.id", "w") as _f:
                 _f.write(str(_embed_message_id))
@@ -144,6 +149,7 @@ async def run():
             print("Could not save data.")
             pass
 
+        #Sleeps for the amount of time you set
         await sleep(sleep_time)
 
 
