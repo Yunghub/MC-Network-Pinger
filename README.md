@@ -1,4 +1,4 @@
-# multiserverembed
+# Minecraft Network Pinger
 Minecraft Multi-Server Pinger Discord Embed
 
 What does this bot do?
