@@ -12,7 +12,6 @@ with open("config.json", "r") as _f:
     config = json.loads(_f.read())
 
 token= config["discord_bot_token"]
-sleep_time = 300
 client = discord.Client()
 
 #Enter your servers here
@@ -23,10 +22,13 @@ servers = [
 ]
 
 #Enter your Embed info here
+sleep_time = 5 # API caches every 10 minutes anyways...
 embedTitle = "My Title"
 embedColour = 0xffffff
 embedThumbnail = "https://i.imgur.com/U067iC8.jpg"
 embedFooterIcon = "https://i.imgur.com/U067iC8.jpg"
+activityServerIndex = 0 #Which index of server for your bots activity
+activityTwitchURL = "https://www.twitch.tv/yung_streams" #Has to be a valid URL otherwise Discord will silent ignore
 
 async def getAPI(address,i):
     _req = requests.get("https://api.mcsrvstat.us/2/%s" % address)
@@ -46,8 +48,28 @@ async def getAPI(address,i):
                 servers[i].append(":green_circle: Online \n:video_game: Playing: %s" % (_req_json["players"]["online"]))
             else:
                 servers[i].append(":green_circle: Online")
-            print (servers)
-            
+            print (servers)     
+
+async def removeEmojis(string):
+
+    stringArray = string.split()
+    joinString = ""
+    delArray = []
+
+    for i in range (0,len(stringArray)):
+        word = stringArray[i]
+        if word[0] == ":" and word[-1] == ":":
+            delArray.append(i)
+    
+    for i in range(0,len(delArray)):
+        stringArray[delArray[0]] = " "
+        del delArray[0]
+
+    for i in range (0,len(stringArray)):
+        if stringArray[i] != " ":
+            joinString = joinString + stringArray[i] + " "
+
+    return joinString
 
 @client.event
 async def on_ready():
@@ -66,6 +88,12 @@ async def run():
         
         for i in range (0,len(servers)):
             await getAPI(servers[i][1],i)
+            if i == activityServerIndex:
+                statusString = await removeEmojis(servers[activityServerIndex][4])
+                if "Online" in servers[activityServerIndex][4]:
+                    await client.change_presence(activity=discord.Streaming(name=statusString, url=activityTwitchURL))
+                else:
+                    await client.change_presence(activity=discord.Game(name='Server Offline'),status=discord.Status.dnd)
 
         try:
             _embed=discord.Embed(title=embedTitle, color=embedColour)
@@ -79,8 +107,6 @@ async def run():
                     _embed.add_field(name="\u200b", value="\u200b", inline=False)
                     _embed.add_field(name=servers[i][0], value=servers[i][4], inline=True)
                     servers[i].pop(4)
-
-
             _embed.set_footer(text="Refreshed @ %s, Powered by YungCZ.com" % datetime.strftime(datetime.now(tz=timezone(timedelta(hours=1))), "%H:%M:%S"), icon_url= embedFooterIcon)
 
         except Exception as e: print(e)
