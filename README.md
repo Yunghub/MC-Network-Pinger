@@ -13,3 +13,5 @@ Edit the config.json file and enter your details
 Edit the main.py file and enter your servers and embed config
 
 run main.py, and you're done!
+
+![image](https://user-images.githubusercontent.com/59136907/147694608-20414ce6-671c-41be-af07-35a78d756c45.png)
