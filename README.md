@@ -7,7 +7,7 @@ Sends a Discord embed to the channel of your choice for network monitoring
 Install all of the required packages on requirements.txt
 
 ```bash
-# Windows
+# Installing using PIP
 pip install -r requirements.txt
 ```
 
