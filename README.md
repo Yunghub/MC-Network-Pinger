@@ -12,8 +12,9 @@ pip install -r requirements.txt
 ```
 
 Then configure your bot in both your config.js and main.py
+
+main.py
 ```python
-# Main.py
 token= config["discord_bot_token"]
 client = discord.Client()
 
@@ -33,8 +34,9 @@ embedFooterIcon = "https://i.imgur.com/U067iC8.jpg"
 activityServerIndex = 0 #Which index of server for your bots activity
 activityTwitchURL = "https://www.twitch.tv/yung_streams" #Has to be a valid URL otherwise Discord will silent ignore
 ```
+
+config.json
 ```json
-// config.json
 {
   "discord_bot_token": "YourTokenHere",
   "discord_channel_id": 694206942069420
