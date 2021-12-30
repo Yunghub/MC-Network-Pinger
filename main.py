@@ -52,24 +52,20 @@ async def getAPI(address,i):
 
 #Removes emojis to be shown in bot activity
 async def removeEmojis(string):
+
     stringArray = string.split()
     joinString = ""
-    delArray = []
 
     for i in range (0,len(stringArray)):
         word = stringArray[i]
         if word[0] == ":" and word[-1] == ":":
-            delArray.append(i)
-    
-    for i in range(0,len(delArray)):
-        stringArray[delArray[0]] = " "
-        del delArray[0]
+            stringArray[i] = " "
 
     for i in range (0,len(stringArray)):
         if stringArray[i] != " ":
             joinString = joinString + stringArray[i] + " "
 
-    return joinString
+    return (joinString)
 
 @client.event
 async def on_ready():
