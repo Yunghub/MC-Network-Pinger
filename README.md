@@ -45,6 +45,8 @@ activityTwitchURL = "https://www.twitch.tv/yung_streams" #Has to be a valid URL 
 ## Usage
 Run the main.py when you have configured both of the files.
 
+![image](https://user-images.githubusercontent.com/59136907/147694608-20414ce6-671c-41be-af07-35a78d756c45.png)
+
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
@@ -54,4 +56,3 @@ Please make sure to update tests as appropriate.
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
 
-![image](https://user-images.githubusercontent.com/59136907/147694608-20414ce6-671c-41be-af07-35a78d756c45.png)
