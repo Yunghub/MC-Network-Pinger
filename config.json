@@ -3,7 +3,7 @@
   "discord_channel_id": 694206942069420,
   "sleep_time": 5,
   "embedTitle": "My Title",
-  "embedColour": 0xffffff,
+  "embedColour": 16777215,
   "embedThumbnail": "https://i.imgur.com/U067iC8.jpg",
   "embedFooterIcon": "https://i.imgur.com/U067iC8.jpg",
   "activityServerIndex": 0,
