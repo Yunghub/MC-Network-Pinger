@@ -22,13 +22,13 @@ servers = [
 ]
 
 #Enter your Embed info here
-sleep_time = 5 # API caches every 10 minutes anyways...
-embedTitle = "My Title"
-embedColour = 0xffffff
-embedThumbnail = "https://i.imgur.com/U067iC8.jpg"
-embedFooterIcon = "https://i.imgur.com/U067iC8.jpg"
-activityServerIndex = 0 #Which index of server for your bots activity
-activityTwitchURL = "https://www.twitch.tv/yung_streams" #Has to be a valid URL otherwise Discord will silent ignore
+sleep_time = config["sleep_time"] # API caches every 10 minutes anyways...
+embedTitle = config["embedTitle"]
+embedColour = config["embedColour"]
+embedThumbnail = config["embedThumbnail"]
+embedFooterIcon = config["embedFooterIcon"]
+activityServerIndex = config["activityServerIndex"] #Which index of server for your bots activity
+activityTwitchURL = config["activityTwitchURL"] #Has to be a valid URL otherwise Discord will silent ignore
 
 #Gets response and stores it in array
 async def getAPI(address,i):
@@ -148,8 +148,4 @@ async def run():
         #Sleeps for the amount of time you set
         await sleep(sleep_time)
 
-
 client.run(token)
-
-
-
