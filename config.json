@@ -1,4 +1,11 @@
 {
   "discord_bot_token": "YourTokenHere",
-  "discord_channel_id": 694206942069420
+  "discord_channel_id": 694206942069420,
+  "sleep_time": 5,
+  "embedTitle" = "My Title",
+  "embedColour" = 0xffffff,
+  "embedThumbnail" = "https://i.imgur.com/U067iC8.jpg",
+  "embedFooterIcon" = "https://i.imgur.com/U067iC8.jpg",
+  "activityServerIndex" = 0,
+  "activityTwitchURL" = "https://www.twitch.tv/yung_streams",
 }
